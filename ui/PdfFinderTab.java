@@ -46,8 +46,17 @@ public class PdfFinderTab extends JPanel {
         cityField = new JTextField(10);
 
         searchButton = new JButton("Search");
+        searchButton.setContentAreaFilled(true);
+        searchButton.setBackground(new Color(46, 139, 87));
+        searchButton.setForeground(Color.WHITE);
         deleteButton = new JButton("Delete");
+        deleteButton.setContentAreaFilled(true);
+        deleteButton.setForeground(Color.WHITE);
+        deleteButton.setBackground(Color.RED);
         clearButton = new JButton("Clear");
+        clearButton.setForeground(Color.WHITE);
+        clearButton.setContentAreaFilled(true);
+        clearButton.setBackground(new Color(66, 133, 244));
 
         panel.add(new JLabel("Number:"));
         panel.add(numberField);
@@ -142,7 +151,7 @@ public class PdfFinderTab extends JPanel {
         foundFiles.clear();
 
         if (currentFolder == null) {
-            addMessageRow("No folder selected!");
+            JOptionPane.showMessageDialog(this, "No folder selected!");
             return;
         }
 
@@ -151,7 +160,7 @@ public class PdfFinderTab extends JPanel {
         String city = cityField.getText().trim();
 
         if (number.isEmpty()) {
-            addMessageRow("Enter number!");
+        	JOptionPane.showMessageDialog(this, "Enter number!");
             return;
         }
 
@@ -159,7 +168,7 @@ public class PdfFinderTab extends JPanel {
 
         File[] files = currentFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".pdf"));
         if (files == null) {
-            addMessageRow("No files found.");
+            JOptionPane.showMessageDialog(this, "No files found.");
             return;
         }
 
@@ -171,7 +180,8 @@ public class PdfFinderTab extends JPanel {
         }
 
         if (matches.isEmpty()) {
-            addMessageRow("Nothing found.");
+            JOptionPane.showMessageDialog(this, "Nothing found.");
+            notifyFooter();
         } else {
             for (File f : matches) {
                 foundFiles.add(f);
@@ -189,10 +199,12 @@ public class PdfFinderTab extends JPanel {
 
     /** Field cleaning */
     private void clearFields() {
-        numberField.setText("");
+    	numberField.setText("");
         typeBox.setSelectedIndex(0);
         cityField.setText("");
         tableModel.setRowCount(0);
+        foundFiles.clear();
+        notifyFooter();
     }
 
     /** Delete the selected file */
@@ -209,13 +221,19 @@ public class PdfFinderTab extends JPanel {
                 JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (selectedFile.delete()) {
-                tableModel.removeRow(resultTable.getSelectedRow());
-                JOptionPane.showMessageDialog(this, "File deleted.");
-                notifyFooter();
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to delete file.");
-            }
+        	
+        	int selectedRow = resultTable.getSelectedRow();
+        	if (selectedFile.delete()) {
+        	    // видаляємо з обох структур
+        	    foundFiles.remove(selectedRow);
+        	    tableModel.removeRow(selectedRow);
+
+        	    JOptionPane.showMessageDialog(this, "File deleted.");
+        	    notifyFooter();
+        	} else {
+        	    JOptionPane.showMessageDialog(this, "Failed to delete file.");
+        	}
+        	
         }
     }
 
@@ -231,11 +249,6 @@ public class PdfFinderTab extends JPanel {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    /** Utilities */
-    private void addMessageRow(String msg) {
-        tableModel.addRow(new Object[]{msg, "", ""});
     }
 
     private Pattern buildFilePattern(String city, String type, String number) {
@@ -283,6 +296,6 @@ public class PdfFinderTab extends JPanel {
     }
 
     public int getFoundFilesCount() {
-        return tableModel.getRowCount();
+        return foundFiles.size();
     }
 }

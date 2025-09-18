@@ -106,6 +106,8 @@ public class TriQApp {
 		frame.setJMenuBar(menuBar);
 
 		frame.setVisible(true);
+        ImageIcon icon = new ImageIcon(TriQApp.class.getResource("/TriQ.png"));
+        frame.setIconImage(icon.getImage());
 	}
 
 	private void chooseCsvFile() {
