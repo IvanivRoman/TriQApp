@@ -6,6 +6,7 @@ import model.Company;
 import model.CompanyManager;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
+import java.util.Comparator;
 import java.util.List;
 
 public class CsvSearchTab extends JPanel {
@@ -130,6 +131,7 @@ public class CsvSearchTab extends JPanel {
         if (found.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Company not found: " + query);
         } else {
+        	found.sort(Comparator.comparing(Company::getOldName, String.CASE_INSENSITIVE_ORDER));
             for (Company c : found) {
                 tableModel.addRow(new Object[]{c.getOldName(), c.getNewName(), c.getRegister(), c.getTrId()});
             }
@@ -231,3 +233,4 @@ public class CsvSearchTab extends JPanel {
         }
     }
 }
+
