@@ -51,6 +51,7 @@ public class TriQApp {
 		pdfTab = new PdfFinderTab();
 		pdfTab.setFooterUpdater(this::updateFooterPdf);
 		handelTab = new HandelsTab();
+		handelTab.setFooterUpdater(this::updateFooterHandels);
 		tabs.addTab("CSV Search", csvTab);
 		tabs.addTab("PDF Finder", pdfTab);
 		tabs.addTab("Handelsregister", handelTab);
@@ -106,8 +107,8 @@ public class TriQApp {
 		frame.setJMenuBar(menuBar);
 
 		frame.setVisible(true);
-        ImageIcon icon = new ImageIcon(TriQApp.class.getResource("/TriQ.png"));
-        frame.setIconImage(icon.getImage());
+		ImageIcon icon = new ImageIcon(TriQApp.class.getResource("/TriQ.png"));
+		frame.setIconImage(icon.getImage());
 	}
 
 	private void chooseCsvFile() {
@@ -138,14 +139,14 @@ public class TriQApp {
 	private void updateFooterPdf() {
 		int count = pdfTab.getFoundFilesCount();
 		statusCircle.setBackground(Color.BLUE);
-		footerLabel.setText("Find: " + count);
+		footerLabel.setText("Found: " + count);
 		footerPanel.repaint();
 	}
 
 	// Footer for Handelsregister tabs
 	private void updateFooterHandels() {
 		statusCircle.setBackground(Color.ORANGE);
-		footerLabel.setText("Handelsregister active");
+		footerLabel.setText("Requests sent: " + handelTab.getRequestsSent());
 		footerPanel.repaint();
 	}
 

@@ -18,11 +18,162 @@ public class HandelsTab extends JPanel {
 	private JComboBox<String> registerTypeBox;
 	private JTextField registerNumField;
 	private JComboBox<String> courtBox;
+	private FooterUpdater footerUpdater;
+	private int requests = 0;
 
 	Map<String, String> courtCodes = new HashMap<>();
 	{
 		courtCodes.put("Alle", "");
-		
+		courtCodes.put("Aachen", "R3101");
+		courtCodes.put("Altenburg", "Y1201");
+		courtCodes.put("Amberg", "D3101");
+		courtCodes.put("Ansbach", "D3201");
+		courtCodes.put("Apolda", "Y1101");
+		courtCodes.put("Arnsberg", "R1901");
+		courtCodes.put("Arnstadt", "Y1102");
+		courtCodes.put("Arnstadt Zweigstelle Ilmenau", "Y1303");
+		courtCodes.put("Aschaffenburg", "D4102");
+		courtCodes.put("Augsburg", "D2102");
+		courtCodes.put("Aurich", "P3101");
+		courtCodes.put("Bad Hersfeld", "M1305");
+		courtCodes.put("Bad Homburg v.d.H.", "M1202");
+		courtCodes.put("Bad Kreuznach", "T2101");
+		courtCodes.put("Bad Oeynhausen", "R2108");
+		courtCodes.put("Bad Salzungen", "Y1301");
+		courtCodes.put("Bamberg", "D4201");
+		courtCodes.put("Bayreuth", "D4301");
+		courtCodes.put("Berlin (Charlottenburg)", "F1103");
+		courtCodes.put("Bielefeld", "R2101");
+		courtCodes.put("Bochum", "R2201");
+		courtCodes.put("Bonn", "R3201");
+		courtCodes.put("Braunschweig", "P1103");
+		courtCodes.put("Bremen", "H1101");
+		courtCodes.put("Chemnitz", "U1206");
+		courtCodes.put("Coburg", "D4401");
+		courtCodes.put("Coesfeld", "R2707");
+		courtCodes.put("Cottbus", "G1103");
+		courtCodes.put("Darmstadt", "M1103");
+		courtCodes.put("Deggendorf", "D2201");
+		courtCodes.put("Dortmund", "R2402");
+		courtCodes.put("Dresden", "U1104");
+		courtCodes.put("Duisburg", "R1202");
+		courtCodes.put("Düren", "R3103");
+		courtCodes.put("Düsseldorf", "R1101");
+		courtCodes.put("Eisenach", "Y1105");
+		courtCodes.put("Erfurt", "Y1106");
+		courtCodes.put("Eschwege", "M1602");
+		courtCodes.put("Essen", "R2503");
+		courtCodes.put("Flensburg", "X1112");
+		courtCodes.put("Frankfurt am Main", "M1201");
+		courtCodes.put("Frankfurt/Oder", "G1207");
+		courtCodes.put("Freiburg", "B1204");
+		courtCodes.put("Friedberg", "M1405");
+		courtCodes.put("Fritzlar", "M1603");
+		courtCodes.put("Fulda", "M1301");
+		courtCodes.put("Fürth", "D3304");
+		courtCodes.put("Gelsenkirchen", "R2507");
+		courtCodes.put("Gera", "Y1203");
+		courtCodes.put("Gießen", "M1406");
+		courtCodes.put("Gotha", "Y1108");
+		courtCodes.put("Göttingen", "P2204");
+		courtCodes.put("Greiz", "Y1205");
+		courtCodes.put("Gütersloh", "R2103");
+		courtCodes.put("Hagen", "R2602");
+		courtCodes.put("Hamburg", "K1101");
+		courtCodes.put("Hamm", "R2404");
+		courtCodes.put("Hanau", "M1502");
+		courtCodes.put("Hannover", "P2305");
+		courtCodes.put("Heilbad Heiligenstadt", "Y1109");
+		courtCodes.put("Hildburghausen", "Y1302");
+		courtCodes.put("Hildesheim", "P2408");
+		courtCodes.put("Hof", "D4501");
+		courtCodes.put("Homburg", "V1102");
+		courtCodes.put("Ingolstadt", "D5701");
+		courtCodes.put("Iserlohn", "R2604");
+		courtCodes.put("Jena", "Y1206");
+		courtCodes.put("Kaiserslautern", "T3201");
+		courtCodes.put("Kassel", "M1607");
+		courtCodes.put("Kempten (Allgäu)", "D2304");
+		courtCodes.put("Kiel", "X1517");
+		courtCodes.put("Kleve", "R1304");
+		courtCodes.put("Koblenz", "T2210");
+		courtCodes.put("Köln", "R3306");
+		courtCodes.put("Königstein", "M1203");
+		courtCodes.put("Korbach", "M1608");
+		courtCodes.put("Krefeld", "R1402");
+		courtCodes.put("Landau", "T3304");
+		courtCodes.put("Landshut", "D2404");
+		courtCodes.put("Langenfeld", "R1105");
+		courtCodes.put("Lebach", "V1103");
+		courtCodes.put("Leipzig", "U1308");
+		courtCodes.put("Lemgo", "R2307");
+		courtCodes.put("Limburg", "M1706");
+		courtCodes.put("Lübeck", "X1721");
+		courtCodes.put("Ludwigshafen a.Rhein (Ludwigshafen)", "T3104");
+		courtCodes.put("Lüneburg", "P2507");
+		courtCodes.put("Mainz", "T2304");
+		courtCodes.put("Mannheim", "B1601");
+		courtCodes.put("Marburg", "M1809");
+		courtCodes.put("Meiningen", "Y1304");
+		courtCodes.put("Memmingen", "D2505");
+		courtCodes.put("Merzig", "V1104");
+		courtCodes.put("Mönchengladbach", "R1504");
+		courtCodes.put("Montabaur", "T2214");
+		courtCodes.put("Mühlhausen", "Y1110");
+		courtCodes.put("München", "D2601");
+		courtCodes.put("Münster", "R2713");
+		courtCodes.put("Neubrandenburg", "N1105");
+		courtCodes.put("Neunkirchen", "V1105");
+		courtCodes.put("Neuruppin", "G1309");
+		courtCodes.put("Neuss", "R1102");
+		courtCodes.put("Nordhausen", "Y1111");
+		courtCodes.put("Nürnberg", "D3310");
+		courtCodes.put("Offenbach am Main", "M1114");
+		courtCodes.put("Oldenburg (Oldenburg)", "P3210");
+		courtCodes.put("Osnabrück", "P3313");
+		courtCodes.put("Ottweiler", "V1107");
+		courtCodes.put("Paderborn", "R2809");
+		courtCodes.put("Passau", "D2803");
+		courtCodes.put("Pinneberg", "X1321");
+		courtCodes.put("Pößneck", "Y1209");
+		courtCodes.put("Pößneck Zweigstelle Bad Lobenstein", "Y1208");
+		courtCodes.put("Potsdam", "G1312");
+		courtCodes.put("Recklinghausen", "R2204");
+		courtCodes.put("Regensburg", "D3410");
+		courtCodes.put("Rostock", "N1206");
+		courtCodes.put("Rudolstadt", "Y1210");
+		courtCodes.put("Saarbrücken", "V1109");
+		courtCodes.put("Saarlouis", "V1110");
+		courtCodes.put("Schweinfurt", "D4608");
+		courtCodes.put("Schwerin", "N1308");
+		courtCodes.put("Siegburg", "R3208");
+		courtCodes.put("Siegen", "R2909");
+		courtCodes.put("Sömmerda", "Y1112");
+		courtCodes.put("Sondershausen", "Y1113");
+		courtCodes.put("Sonneberg", "Y1307");
+		courtCodes.put("Stadthagen", "P2106");
+		courtCodes.put("Stadtroda", "Y1214");
+		courtCodes.put("Steinfurt", "R2706");
+		courtCodes.put("Stendal", "W1215");
+		courtCodes.put("St. Ingbert (St Ingbert)", "V1111");
+		courtCodes.put("Stralsund", "N1209");
+		courtCodes.put("Straubing", "D3413");
+		courtCodes.put("Stuttgart", "B2609");
+		courtCodes.put("St. Wendel (St Wendel)", "V1112");
+		courtCodes.put("Suhl", "Y1308");
+		courtCodes.put("Tostedt", "P2613");
+		courtCodes.put("Traunstein", "D2910");
+		courtCodes.put("Ulm", "B2805");
+		courtCodes.put("Völklingen", "V1115");
+		courtCodes.put("Walsrode", "P2716");
+		courtCodes.put("Weiden i. d. OPf.", "D3508");
+		courtCodes.put("Weimar", "Y1114");
+		courtCodes.put("Wetzlar", "M1710");
+		courtCodes.put("Wiesbaden", "M1906");
+		courtCodes.put("Wittlich", "T2408");
+		courtCodes.put("Wuppertal", "R1608");
+		courtCodes.put("Würzburg", "D4708");
+		courtCodes.put("Zweibrücken", "T3403");
 	}
 
 	public HandelsTab() {
@@ -147,7 +298,7 @@ public class HandelsTab extends JPanel {
 
 	private void openSearchInBrowser() {
 		try {
-			String baseUrl = "put_correct_line";
+			String baseUrl = "https://pv.registerportal.de/rp_pv/secSuche.xhtml";
 			String schlagwoerter = encode(queryField.getText());
 			String schlagwortOptionen = allWordsBtn.isSelected() ? "1" : anyWordBtn.isSelected() ? "2" : "3";
 			String registerArt = encode((String) registerTypeBox.getSelectedItem());
@@ -158,7 +309,7 @@ public class HandelsTab extends JPanel {
 			String url = baseUrl + "?schlagwoerter=" + schlagwoerter + "&schlagwortOptionen=" + schlagwortOptionen
 					+ "&registerArt=" + registerArt + "&registerNummer=" + registerNummer + "&registergericht="
 					+ registergericht + "&suchOptionenGeloescht=true";
-
+			requests++;
 			Desktop.getDesktop().browse(new URI(url));
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
@@ -177,5 +328,19 @@ public class HandelsTab extends JPanel {
 
 	private String encode(String value) {
 		return URLEncoder.encode(value == null ? "" : value, StandardCharsets.UTF_8);
+	}
+	
+	public void setFooterUpdater(FooterUpdater footerUpdater) {
+		this.footerUpdater = footerUpdater;
+	}
+
+	private void notifyFooter() {
+		if (footerUpdater != null) {
+			footerUpdater.updateFooter();
+		}
+	}
+
+	public int getRequestsSent() {
+		return requests;
 	}
 }

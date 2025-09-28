@@ -249,15 +249,19 @@ public class PdfFinderTab extends JPanel {
 	}
 
 	private Pattern buildFilePattern(String city, String type, String number) {
-		StringBuilder patternBuilder = new StringBuilder(".*");
+		StringBuilder regex = new StringBuilder(".*");
+
 		if (!city.isEmpty()) {
-			patternBuilder.append(Pattern.quote(city)).append(".*");
+			regex.append(Pattern.quote(city)).append(".*");
 		}
 		if (!"-".equals(type)) {
-			patternBuilder.append(Pattern.quote(type)).append(".*");
+			
+			regex.append("_").append(Pattern.quote(type));
 		}
-		patternBuilder.append(Pattern.quote(number)).append(".*\\.pdf");
-		return Pattern.compile(patternBuilder.toString(), Pattern.CASE_INSENSITIVE);
+
+		regex.append("_").append(Pattern.quote(number)).append("\\+.*\\.pdf");
+
+		return Pattern.compile(regex.toString(), Pattern.CASE_INSENSITIVE);
 	}
 
 	private String cleanFileName(String fileName) {
